@@ -8,6 +8,7 @@ import Craft from './components/Craft';
 import Testimonials from './components/Testimonials';
 import FAQs from './components/FAQs';
 import Footer from './components/Footer';
+import FloatingMenu from './components/FloatingMenu';
 import svg1 from './Assets/svg.svg';
 import svg2 from './Assets/svg2.svg';
 
@@ -33,6 +34,7 @@ function App() {
       <Testimonials />
       <FAQs />
       <Footer />
+      <FloatingMenu />
     </div>
   );
 }
