@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/components/FloatingMenu.css';
 import outlierLogo from '../Assets/outlierLogo.png';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function FloatingMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,24 +23,29 @@ function FloatingMenu() {
 
   const menuItems = [
     {
-      icon: '👁️',
-      label: 'Screen Reader',
-      tooltip: 'Enable screen reader mode for better accessibility'
+      icon: 'fa-solid fa-hand-back-fist',
+      label: 'Motion Experience',
+      tooltip: 'Adjust motion sensitivity and reduce motion effects'
     },
     {
-      icon: '🎨',
+      icon: 'fa-solid fa-microphone-lines',
+      label: 'Voice Control',
+      tooltip: 'Enable voice commands for navigation and control'
+    },
+    {
+      icon: 'fa-solid fa-circle-half-stroke',
       label: 'High Contrast',
       tooltip: 'Switch to high contrast mode for better visibility'
     },
     {
-      icon: '📏',
-      label: 'Text Size',
-      tooltip: 'Adjust text size for comfortable reading'
+      icon: 'fa-solid fa-palette',
+      label: 'Color Vision Mode',
+      tooltip: 'Adjust color settings for different types of color vision'
     },
     {
-      icon: '🌙',
-      label: 'Dark Mode',
-      tooltip: 'Toggle dark mode for reduced eye strain'
+      icon: 'fa-solid fa-magnifying-glass',
+      label: 'Reading Assistance',
+      tooltip: 'Enable text-to-speech and reading aids'
     }
   ];
 
@@ -165,7 +171,7 @@ function FloatingMenu() {
             role="menuitem"
             aria-label={item.tooltip}
           >
-            <span className="floating-menu-icon">{item.icon}</span>
+            <i className={item.icon}></i>
             <span className="floating-menu-tooltip">{item.tooltip}</span>
           </button>
         ))}

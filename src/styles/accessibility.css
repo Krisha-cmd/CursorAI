@@ -1,0 +1,44 @@
+/* Import FontAwesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+/* Motion Experience */
+.motion-reduced {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* High Contrast */
+.high-contrast {
+  filter: contrast(150%);
+}
+
+/* Color Vision Modes */
+.color-vision-protanopia {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="protanopia"><feColorMatrix type="matrix" values="0.567,0.433,0,0,0 0.558,0.442,0,0,0 0,0.242,0.758,0,0 0,0,0,1,0"/></filter></svg>#protanopia');
+}
+
+.color-vision-deuteranopia {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="deuteranopia"><feColorMatrix type="matrix" values="0.625,0.375,0,0,0 0.7,0.3,0,0,0 0,0.3,0.7,0,0 0,0,0,1,0"/></filter></svg>#deuteranopia');
+}
+
+.color-vision-tritanopia {
+  filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="tritanopia"><feColorMatrix type="matrix" values="0.95,0.05,0,0,0 0,0.433,0.567,0,0 0,0.475,0.525,0,0 0,0,0,1,0"/></filter></svg>#tritanopia');
+}
+
+/* Reading Assistance */
+.reading-assistance {
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  word-spacing: 0.16em;
+}
+
+.reading-assistance p {
+  max-width: 70ch;
+  margin: 0 auto;
+}
+
+/* Voice Control */
+.voice-control-active {
+  outline: 2px solid #5eead4;
+  outline-offset: 2px;
+} 
