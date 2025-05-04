@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useReadingAssistance } from '../features/accessibility/ReadingAssistance';
 import HandTrackingPopups from './HandTrackingPopups';
 import { useMotionExperience } from '../features/accessibility/MotionExperience';
+import { useVoiceControl } from '../features/accessibility/VoiceControl';
 
 function FloatingMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,6 +37,14 @@ function FloatingMenu() {
     initializeCamera
   } = useMotionExperience();
 
+  const {
+    isListening,
+    isSpeaking,
+    toggleVoiceControl,
+    startListening,
+    stopListening
+  } = useVoiceControl();
+
   const chatMessages = [
     "Hello! Need help?",
     "How can I assist you today?",
@@ -64,18 +73,18 @@ function FloatingMenu() {
       tooltip: 'Enable voice commands for navigation and control',
       action: () => handleFeatureClick('voice', 'microphone-lines')
     },
-    {
-      icon: 'fa-solid fa-circle-half-stroke',
-      label: 'High Contrast',
-      tooltip: 'Switch to high contrast mode for better visibility',
-      action: () => handleFeatureClick('contrast', 'circle-half-stroke')
-    },
-    {
-      icon: 'fa-solid fa-palette',
-      label: 'Color Vision Mode',
-      tooltip: 'Adjust color settings for different types of color vision',
-      action: () => handleFeatureClick('color', 'palette')
-    },
+    // {
+    //   icon: 'fa-solid fa-circle-half-stroke',
+    //   label: 'High Contrast',
+    //   tooltip: 'Switch to high contrast mode for better visibility',
+    //   action: () => handleFeatureClick('contrast', 'circle-half-stroke')
+    // },
+    // {
+    //   icon: 'fa-solid fa-palette',
+    //   label: 'Color Vision Mode',
+    //   tooltip: 'Adjust color settings for different types of color vision',
+    //   action: () => handleFeatureClick('color', 'palette')
+    // },
     {
       icon: 'fa-solid fa-magnifying-glass',
       label: 'Reading Assistance',
@@ -85,8 +94,11 @@ function FloatingMenu() {
   ];
 
   const handleFeatureClick = (feature, icon) => {
+    console.log('Feature clicked:', feature, 'Current active mode:', activeMode);
+    
     // If clicking the same feature, deactivate it
     if (activeMode === feature) {
+      console.log('Deactivating current feature:', feature);
       setActiveMode(null);
       setIsMenuOpen(false);
       
@@ -96,21 +108,29 @@ function FloatingMenu() {
         toggleReadingAssistance();
       } else if (feature === 'motion') {
         toggleMotion();
+      } else if (feature === 'voice') {
+        console.log('Deactivating voice control');
+        toggleVoiceControl();
       }
       return;
     }
 
     // Deactivate previous mode if any
     if (activeMode) {
+      console.log('Deactivating previous mode:', activeMode);
       document.body.classList.remove('motion-reduced', 'high-contrast', 'reading-assistance');
       if (activeMode === 'reading') {
         toggleReadingAssistance();
       } else if (activeMode === 'motion') {
         toggleMotion();
+      } else if (activeMode === 'voice') {
+        console.log('Deactivating previous voice control');
+        toggleVoiceControl();
       }
     }
 
     // Activate new mode
+    console.log('Setting new active mode:', feature);
     setActiveMode(feature);
     setIsMenuOpen(false);
     
@@ -144,7 +164,16 @@ function FloatingMenu() {
         // Add color vision mode toggle logic here
         break;
       case 'voice':
-        // Add voice control toggle logic here
+        console.log('Activating voice control');
+        toggleVoiceControl();
+        setChatMessage("Voice control activated. I'm listening for your commands.");
+        setShowChat(true);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+          setShowChat(false);
+        }, 10000);
         break;
       default:
         break;
@@ -166,7 +195,7 @@ function FloatingMenu() {
       case 'color':
         return <i className="fas fa-palette"></i>;
       case 'voice':
-        return <i className="fas fa-microphone-lines"></i>;
+        return <i className={`fas ${isListening ? 'fa-microphone' : 'fa-microphone-slash'}`}></i>;
       default:
         return <img src={outlierLogo} alt="Outlier Logo" className="floating-menu-logo" />;
     }
