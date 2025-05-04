@@ -47,12 +47,10 @@ function FloatingMenu() {
       setChatMessage(randomMessage);
       setShowChat(true);
 
-      // Clear any existing timeout
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
 
-      // Set new timeout
       timeoutRef.current = setTimeout(() => {
         setShowChat(false);
       }, 5000);
@@ -60,10 +58,8 @@ function FloatingMenu() {
   };
 
   useEffect(() => {
-    // Set initial message
     setChatMessage(chatMessages[0]);
     
-    // Set up interval for subsequent messages
     const chatInterval = setInterval(() => {
       if (!isMenuOpen) {
         showRandomChat();
