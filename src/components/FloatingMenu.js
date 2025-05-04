@@ -27,9 +27,13 @@ function FloatingMenu() {
     isHandTrackingEnabled,
     showCameraPermission,
     showSystemCheck,
+    showLoading,
+    showInstruction,
     setShowCameraPermission,
     setShowSystemCheck,
-    toggleMotion
+    setShowInstruction,
+    toggleMotion,
+    initializeCamera
   } = useMotionExperience();
 
   const chatMessages = [
@@ -90,6 +94,8 @@ function FloatingMenu() {
       document.body.classList.remove('motion-reduced', 'high-contrast', 'reading-assistance');
       if (feature === 'reading') {
         toggleReadingAssistance();
+      } else if (feature === 'motion') {
+        toggleMotion();
       }
       return;
     }
@@ -99,6 +105,8 @@ function FloatingMenu() {
       document.body.classList.remove('motion-reduced', 'high-contrast', 'reading-assistance');
       if (activeMode === 'reading') {
         toggleReadingAssistance();
+      } else if (activeMode === 'motion') {
+        toggleMotion();
       }
     }
 
@@ -120,15 +128,14 @@ function FloatingMenu() {
         break;
       case 'motion':
         toggleMotion();
-          setChatMessage("Now you can use your hands instead of your mouse!");
-          setShowChat(true);
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-          timeoutRef.current = setTimeout(() => {
-            setShowChat(false);
-          }, 10000);
-        
+        setChatMessage("Now you can use your hands instead of your mouse!");
+        setShowChat(true);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+          setShowChat(false);
+        }, 10000);
         break;
       case 'contrast':
         document.body.classList.add('high-contrast');
@@ -301,8 +308,12 @@ function FloatingMenu() {
       <HandTrackingPopups
         showSystemCheck={showSystemCheck}
         showCameraPermission={showCameraPermission}
+        showLoading={showLoading}
+        showInstruction={showInstruction}
         setShowSystemCheck={setShowSystemCheck}
         setShowCameraPermission={setShowCameraPermission}
+        setShowInstruction={setShowInstruction}
+        initializeCamera={initializeCamera}
       />
     </>
   );
