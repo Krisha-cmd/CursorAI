@@ -3,6 +3,7 @@ import '../styles/components/Craft.css';
 import craft1 from '../Assets/craft1.png';
 import craft2 from '../Assets/craft2.png';
 import craft3 from '../Assets/craft3.png';
+import craftIcon from '../Assets/crafticon.svg';
 
 function Craft() {
   const [activeCard, setActiveCard] = useState('ranking');
@@ -97,6 +98,35 @@ function Craft() {
             alt="Craft illustration" 
             className="craft-image"
           />
+        </div>
+      </div>
+      <div className="craft-banner">
+        <div className="craft-banner-circle">
+          <div className="craft-banner-stack">
+            <img 
+              src={craftIcon}
+              alt="wand" 
+              className="craft-banner-icon"
+            />
+          </div>
+        </div>
+        <div className="craft-banner-content">
+          <div className="craft-banner-title">
+            <p>AI training is never boring!</p>
+          </div>
+          <div className="craft-banner-subtitle">
+            <p>Apply for an opportunity in your area of expertise</p>
+          </div>
+        </div>
+        <div className="craft-banner-button-container">
+          <button 
+            className="craft-banner-button"
+            onClick={() => window.open('https://app.outlier.ai/en/expert/jobs?ajs=dfe4435f-81cc-416f-b189-7cf8c646d90e', '_blank')}
+          >
+            <div className="craft-banner-button-text">
+              <p>VIEW OPPORTUNITIES</p>
+            </div>
+          </button>
         </div>
       </div>
     </div>

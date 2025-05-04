@@ -231,4 +231,110 @@
     border-radius: 1.2rem;
     padding: 1rem 0.7rem;
   }
+}
+
+/* Banner Styles */
+.craft-banner {
+  display: flex;
+  align-items: center;
+  padding: 32px;
+  background: #f9f8f5;
+  margin-top:24px;
+  border-radius: 24px;
+  height: 139px;
+}
+
+.craft-banner-circle {
+  width: 75px;
+  height: 75px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.craft-banner-stack {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.craft-banner-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.craft-banner-content {
+  flex: 1;
+}
+
+.craft-banner-title {
+  font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28.8px;
+  letter-spacing: normal;
+  color: #1B0030;
+  margin-bottom: 8px;
+}
+
+.craft-banner-subtitle {
+  font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.4px;
+  letter-spacing: 0.32px;
+  color: #1B0030;
+}
+
+.craft-banner-button-container {
+  margin-left: auto;
+}
+
+.craft-banner-button {
+  display: inline-block;
+  padding: 24px 48px;
+  background: rgb(27, 0, 48);
+  border-radius: 8px;
+  border: none;
+  border-radius: 5000px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.craft-banner-button:hover {
+  background: #64307F;
+}
+
+.craft-banner-button-text {
+  font-family: "Inter Tight SemiBold", "Inter Tight SemiBold Placeholder", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .craft-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .craft-banner-button-container {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .craft-banner-button {
+    width: 100%;
+    text-align: center;
+  }
 } 
