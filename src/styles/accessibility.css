@@ -37,6 +37,35 @@
   margin: 0 auto;
 }
 
+/* Interactive Reading Highlight */
+.reading-highlight {
+  background: linear-gradient(120deg, rgba(94, 234, 212, 0.2) 0%, rgba(94, 234, 212, 0.4) 100%);
+  border-radius: 4px;
+  padding: 2px 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.reading-highlight::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(120deg, 
+    rgba(94, 234, 212, 0.4),
+    rgba(123, 228, 149, 0.4)
+  );
+  border-radius: 6px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reading-highlight:hover::before {
+  opacity: 1;
+}
+
 /* Voice Control */
 .voice-control-active {
   outline: 2px solid #5eead4;
