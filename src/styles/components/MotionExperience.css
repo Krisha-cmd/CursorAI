@@ -1,0 +1,210 @@
+.motion-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 9997;
+  pointer-events: none;
+}
+
+.motion-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  animation: pulse 4s infinite;
+}
+
+.motion-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.2),
+    inset 0 0 100px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+.camera-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 9998;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.camera-container:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.camera-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  border-radius: 16px;
+}
+
+.hand-tracking-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9996;
+}
+
+.camera-loading {
+  color: #fff;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+.hand-cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(94, 234, 212, 0.8) 0%,
+    rgba(94, 234, 212, 0.4) 70%
+  );
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease;
+  box-shadow: 
+    0 0 20px rgba(94, 234, 212, 0.6),
+    0 0 40px rgba(94, 234, 212, 0.4),
+    0 0 60px rgba(94, 234, 212, 0.2);
+  animation: cursor-pulse 2s infinite;
+}
+
+.hand-cursor.fist-closed {
+  transform: translate(-50%, -50%) scale(0.8);
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 107, 0.8) 0%,
+    rgba(255, 107, 107, 0.4) 70%
+  );
+  box-shadow: 
+    0 0 20px rgba(255, 107, 107, 0.6),
+    0 0 40px rgba(255, 107, 107, 0.4),
+    0 0 60px rgba(255, 107, 107, 0.2);
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(94, 234, 212, 0.3);
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  pointer-events: none;
+  animation: trail-fade 1s forwards;
+}
+
+.reading-highlight {
+  background: linear-gradient(120deg, rgba(94, 234, 212, 0.2) 0%, rgba(94, 234, 212, 0.4) 100%);
+  border-radius: 4px;
+  padding: 2px 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.reading-highlight::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(120deg, 
+    rgba(94, 234, 212, 0.4),
+    rgba(123, 228, 149, 0.4)
+  );
+  border-radius: 6px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reading-highlight:hover::before {
+  opacity: 1;
+}
+
+@keyframes cursor-pulse {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(94, 234, 212, 0.6),
+      0 0 40px rgba(94, 234, 212, 0.4),
+      0 0 60px rgba(94, 234, 212, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(94, 234, 212, 0.8),
+      0 0 60px rgba(94, 234, 212, 0.6),
+      0 0 90px rgba(94, 234, 212, 0.4);
+  }
+  100% {
+    box-shadow: 
+      0 0 20px rgba(94, 234, 212, 0.6),
+      0 0 40px rgba(94, 234, 212, 0.4),
+      0 0 60px rgba(94, 234, 212, 0.2);
+  }
+}
+
+@keyframes trail-fade {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+  }
+} 

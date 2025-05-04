@@ -70,4 +70,46 @@
 .voice-control-active {
   outline: 2px solid #5eead4;
   outline-offset: 2px;
+}
+
+/* Hand Tracking Cursor Animations */
+@keyframes cursor-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes trail-fade {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Motion Experience Overlay */
+#motion-overlay {
+  transition: opacity 0.3s ease;
+}
+
+/* Camera Preview */
+.motion-camera-preview {
+  transition: all 0.3s ease;
+  transform-origin: top right;
+}
+
+.motion-camera-preview:hover {
+  transform: scale(1.05);
 } 

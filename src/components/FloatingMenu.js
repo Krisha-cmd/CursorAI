@@ -3,6 +3,8 @@ import '../styles/components/FloatingMenu.css';
 import outlierLogo from '../Assets/outlierLogo.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useReadingAssistance } from '../features/accessibility/ReadingAssistance';
+import HandTrackingPopups from './HandTrackingPopups';
+import { useMotionExperience } from '../features/accessibility/MotionExperience';
 
 function FloatingMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,6 +21,16 @@ function FloatingMenu() {
     isEnabled,
     toggleReadingAssistance
   } = useReadingAssistance();
+
+  const {
+    isReduced,
+    isHandTrackingEnabled,
+    showCameraPermission,
+    showSystemCheck,
+    setShowCameraPermission,
+    setShowSystemCheck,
+    toggleMotion
+  } = useMotionExperience();
 
   const chatMessages = [
     "Hello! Need help?",
@@ -104,10 +116,19 @@ function FloatingMenu() {
         }
         timeoutRef.current = setTimeout(() => {
           setShowChat(false);
-        }, 10000); // Show for 10 seconds
+        }, 10000);
         break;
       case 'motion':
-        document.body.classList.add('motion-reduced');
+        toggleMotion();
+          setChatMessage("Now you can use your hands instead of your mouse!");
+          setShowChat(true);
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+          timeoutRef.current = setTimeout(() => {
+            setShowChat(false);
+          }, 10000);
+        
         break;
       case 'contrast':
         document.body.classList.add('high-contrast');
@@ -230,52 +251,60 @@ function FloatingMenu() {
   }, [isMenuOpen, activeMode]);
 
   return (
-    <div 
-      className="floating-menu"
-      ref={menuRef}
-      style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        bottom: 'auto',
-        cursor: isDragging ? 'grabbing' : 'default'
-      }}
-      onMouseDown={handleMouseDown}
-    >
+    <>
       <div 
-        className="floating-menu-button"
-        onClick={toggleMenu}
-        role="button"
-        tabIndex="0"
-        aria-label="Toggle accessibility menu"
-        aria-expanded={isMenuOpen}
+        className="floating-menu"
+        ref={menuRef}
+        style={{
+          left: `${position.x}px`,
+          top: `${position.y}px`,
+          bottom: 'auto',
+          cursor: isDragging ? 'grabbing' : 'default'
+        }}
+        onMouseDown={handleMouseDown}
       >
-        {getIconContent()}
-        {!isMenuOpen && showChat && (
-          <div className="floating-menu-chat">
-            {chatMessage}
-          </div>
-        )}
+        <div 
+          className="floating-menu-button"
+          onClick={toggleMenu}
+          role="button"
+          tabIndex="0"
+          aria-label="Toggle accessibility menu"
+          aria-expanded={isMenuOpen}
+        >
+          {getIconContent()}
+          {!isMenuOpen && showChat && (
+            <div className="floating-menu-chat">
+              {chatMessage}
+            </div>
+          )}
+        </div>
+        
+        <div 
+          className={`floating-menu-items ${isMenuOpen ? 'open' : ''}`}
+          role="menu"
+          aria-label="Accessibility options"
+        >
+          {menuItems.map((item, index) => (
+            <button 
+              key={index}
+              className={`floating-menu-item ${activeMode === item.label.toLowerCase().replace(' ', '-') ? 'active' : ''}`}
+              role="menuitem"
+              aria-label={item.tooltip}
+              onClick={item.action}
+            >
+              <i className={item.icon}></i>
+              <span className="floating-menu-tooltip">{item.tooltip}</span>
+            </button>
+          ))}
+        </div>
       </div>
-      
-      <div 
-        className={`floating-menu-items ${isMenuOpen ? 'open' : ''}`}
-        role="menu"
-        aria-label="Accessibility options"
-      >
-        {menuItems.map((item, index) => (
-          <button 
-            key={index}
-            className={`floating-menu-item ${activeMode === item.label.toLowerCase().replace(' ', '-') ? 'active' : ''}`}
-            role="menuitem"
-            aria-label={item.tooltip}
-            onClick={item.action}
-          >
-            <i className={item.icon}></i>
-            <span className="floating-menu-tooltip">{item.tooltip}</span>
-          </button>
-        ))}
-      </div>
-    </div>
+      <HandTrackingPopups
+        showSystemCheck={showSystemCheck}
+        showCameraPermission={showCameraPermission}
+        setShowSystemCheck={setShowSystemCheck}
+        setShowCameraPermission={setShowCameraPermission}
+      />
+    </>
   );
 }
 
