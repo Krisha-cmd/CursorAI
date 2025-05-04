@@ -11,17 +11,13 @@ function FloatingMenu() {
   const [position, setPosition] = useState({ x: 40, y: window.innerHeight - 130 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [activeIcon, setActiveIcon] = useState('universal-access');
+  const [activeMode, setActiveMode] = useState(null);
   const menuRef = useRef(null);
   const timeoutRef = useRef(null);
 
   const {
     isEnabled,
-    zoomLevel,
-    toggleReadingAssistance,
-    increaseZoom,
-    decreaseZoom,
-    resetZoom
+    toggleReadingAssistance
   } = useReadingAssistance();
 
   const chatMessages = [
@@ -31,6 +27,13 @@ function FloatingMenu() {
     "Discover our accessibility features",
     "Try our new features!"
   ];
+
+  // Effect to handle chat message changes
+  useEffect(() => {
+    if (chatMessage) {
+      console.log('Current chat message:', chatMessage);
+    }
+  }, [chatMessage]);
 
   const menuItems = [
     {
@@ -66,28 +69,48 @@ function FloatingMenu() {
   ];
 
   const handleFeatureClick = (feature, icon) => {
-    setActiveIcon(icon);
+    // If clicking the same feature, deactivate it
+    if (activeMode === feature) {
+      setActiveMode(null);
+      setIsMenuOpen(false);
+      
+      // Remove any active classes
+      document.body.classList.remove('motion-reduced', 'high-contrast', 'reading-assistance');
+      if (feature === 'reading') {
+        toggleReadingAssistance();
+      }
+      return;
+    }
+
+    // Deactivate previous mode if any
+    if (activeMode) {
+      document.body.classList.remove('motion-reduced', 'high-contrast', 'reading-assistance');
+      if (activeMode === 'reading') {
+        toggleReadingAssistance();
+      }
+    }
+
+    // Activate new mode
+    setActiveMode(feature);
     setIsMenuOpen(false);
     
     switch (feature) {
       case 'reading':
         toggleReadingAssistance();
-        if (!isEnabled) {
-          setChatMessage("Click on the parts you want to read out loud");
-          setShowChat(true);
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-          timeoutRef.current = setTimeout(() => {
-            setShowChat(false);
-          }, 5000);
+        setChatMessage("Hover over text to zoom and read aloud");
+        setShowChat(true);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
         }
+        timeoutRef.current = setTimeout(() => {
+          setShowChat(false);
+        }, 10000); // Show for 10 seconds
         break;
       case 'motion':
-        document.body.classList.toggle('motion-reduced');
+        document.body.classList.add('motion-reduced');
         break;
       case 'contrast':
-        document.body.classList.toggle('high-contrast');
+        document.body.classList.add('high-contrast');
         break;
       case 'color':
         // Add color vision mode toggle logic here
@@ -100,11 +123,25 @@ function FloatingMenu() {
     }
   };
 
-  const getIconClass = () => {
-    if (activeIcon === 'universal-access') {
-      return 'fas fa-universal-access';
+  const getIconContent = () => {
+    if (!activeMode) {
+      return <img src={outlierLogo} alt="Outlier Logo" className="floating-menu-logo" />;
     }
-    return `fas fa-${activeIcon}`;
+
+    switch (activeMode) {
+      case 'reading':
+        return <i className={`fas ${isEnabled ? 'fa-volume-up' : 'fa-volume-mute'}`}></i>;
+      case 'motion':
+        return <i className="fas fa-hand-back-fist"></i>;
+      case 'contrast':
+        return <i className="fas fa-circle-half-stroke"></i>;
+      case 'color':
+        return <i className="fas fa-palette"></i>;
+      case 'voice':
+        return <i className="fas fa-microphone-lines"></i>;
+      default:
+        return <img src={outlierLogo} alt="Outlier Logo" className="floating-menu-logo" />;
+    }
   };
 
   const handleMouseDown = (e) => {
@@ -157,7 +194,7 @@ function FloatingMenu() {
   };
 
   const showRandomChat = () => {
-    if (!isMenuOpen && !isEnabled) {
+    if (!isMenuOpen && !activeMode) {
       const randomMessage = chatMessages[Math.floor(Math.random() * chatMessages.length)];
       setChatMessage(randomMessage);
       setShowChat(true);
@@ -172,11 +209,14 @@ function FloatingMenu() {
     }
   };
 
+  // Initial chat message and interval setup
   useEffect(() => {
-    setChatMessage(chatMessages[0]);
+    if (!activeMode) {
+      setChatMessage(chatMessages[0]);
+    }
     
     const chatInterval = setInterval(() => {
-      if (!isMenuOpen && !isEnabled) {
+      if (!isMenuOpen && !activeMode) {
         showRandomChat();
       }
     }, 15000);
@@ -187,7 +227,7 @@ function FloatingMenu() {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [isMenuOpen, isEnabled]);
+  }, [isMenuOpen, activeMode]);
 
   return (
     <div 
@@ -209,7 +249,7 @@ function FloatingMenu() {
         aria-label="Toggle accessibility menu"
         aria-expanded={isMenuOpen}
       >
-        <i className={getIconClass()}></i>
+        {getIconContent()}
         {!isMenuOpen && showChat && (
           <div className="floating-menu-chat">
             {chatMessage}
@@ -225,7 +265,7 @@ function FloatingMenu() {
         {menuItems.map((item, index) => (
           <button 
             key={index}
-            className="floating-menu-item"
+            className={`floating-menu-item ${activeMode === item.label.toLowerCase().replace(' ', '-') ? 'active' : ''}`}
             role="menuitem"
             aria-label={item.tooltip}
             onClick={item.action}
