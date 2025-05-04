@@ -1,38 +1,105 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/components/Craft.css';
+import craft1 from '../Assets/craft1.png';
+import craft2 from '../Assets/craft2.png';
+import craft3 from '../Assets/craft3.png';
 
 function Craft() {
+  const [activeCard, setActiveCard] = useState('ranking');
+
+  const handleCardClick = (cardType) => {
+    setActiveCard(cardType);
+  };
+
+  const getImageSource = () => {
+    switch (activeCard) {
+      case 'ranking':
+        return craft1;
+      case 'rewrite':
+        return craft2;
+      case 'multimodal':
+        return craft3;
+      default:
+        return craft1;
+    }
+  };
+
   return (
-    <section className="craft">
-      <div className="craft-header">
-        <h2 className="craft-title">Building great AI is a craft</h2>
-        <p className="craft-subtitle">AI training is never boring. Create your account and try a sample task in your area of expertise</p>
+    <div className="craft-container">
+      <div className="craft-heading-content">
+        <h1 className="craft-main-heading">Building great AI is a craft</h1>
+        <p className="craft-subheading">AI training is never boring. Create your account and try a<br />sample task in your area of expertise</p>
       </div>
-      <div className="craft-content">
-        <div className="craft-left">
-          <div className="craft-card craft-card-active">
-            <div className="craft-card-icon">🏅</div>
-            <div>
-              <div className="craft-card-title">Rating & ranking</div>
-              <div className="craft-card-desc">Rating or ranking assignments ask contributors to identify the best model responses out of two or more options until the content is high quality enough to be accepted in a review process. Contributors may also be asked to justify their selection in relation to specific criteria or factors.</div>
+
+      <div className="craft-cards-container">
+        <div className="craft-card-container-2">
+          <div 
+            className={`craft-card ${activeCard === 'ranking' ? 'craft-card-active' : 'craft-card-inactive'}`}
+            onClick={() => handleCardClick('ranking')}
+          >
+            <div className="craft-card-content">
+              {activeCard === 'ranking' && (
+                <img 
+                  src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%2020%2024%22%3E%3Cpath%20d%3D%22M%2016.827%2014.625%20L%2019.135%2020.344%20C%2019.279%2020.719%2019.231%2021.141%2018.942%2021.469%20C%2018.702%2021.703%2018.413%2021.891%2018.077%2021.891%20C%2017.981%2021.891%2017.885%2021.844%2017.836%2021.844%20L%2015.673%2021.422%20L%2014.615%2023.391%20C%2014.423%2023.813%2014.038%2024.001%2013.605%2024.001%20L%2013.558%2024.001%20C%2013.077%2024.001%2012.692%2023.719%2012.548%2023.344%20L%2010.385%2018%20L%209.615%2018%20L%207.404%2023.344%20C%207.259%2023.719%206.875%2024%206.394%2024%20L%206.346%2024%20C%205.918%2024.002%205.526%2023.765%205.336%2023.39%20L%204.278%2021.422%20L%202.115%2021.844%20C%202.067%2021.844%201.971%2021.891%201.875%2021.891%20C%201.538%2021.891%201.25%2021.703%201.01%2021.469%20C%200.722%2021.14%200.673%2020.719%200.818%2020.344%20L%203.173%2014.672%20C%202.74%2014.438%202.308%2014.063%201.971%2013.5%20C%201.491%2012.656%201.538%2011.813%201.538%2011.296%20L%201.538%2011.203%20C%201.25%2010.781%200.769%2010.031%200.769%209%20C%200.769%208.015%201.25%207.265%201.538%206.844%20L%201.538%206.75%20C%201.538%206.234%201.49%205.39%201.972%204.5%20C%202.5%203.656%203.269%203.281%203.749%203.046%20C%203.798%203.046%203.798%203%203.798%203%20C%203.798%203%203.846%203%203.846%202.953%20C%204.087%202.485%204.472%201.735%205.337%201.219%20C%205.865%200.938%206.491%200.796%207.164%200.796%20L%207.741%200.796%20C%208.172%200.516%208.942%200%2010%200%20C%2011.01%200%2011.779%200.516%2012.164%200.797%20L%2012.74%200.797%20C%2013.462%200.797%2014.038%200.938%2014.567%201.219%20C%2015.432%201.735%2015.817%202.485%2016.058%202.954%20L%2016.106%203%20C%2016.106%203%2016.106%203.047%2016.154%203.047%20C%2016.635%203.281%2017.404%203.656%2017.933%204.5%20C%2018.414%205.391%2018.365%206.235%2018.365%206.75%20L%2018.365%206.844%20C%2018.654%207.266%2019.183%208.016%2019.183%209%20C%2019.183%2010.031%2018.702%2010.781%2018.414%2011.25%20L%2018.414%2011.344%20C%2018.414%2011.86%2018.462%2012.703%2017.981%2013.547%20C%2017.644%2014.063%2017.212%2014.391%2016.827%2014.625%20Z%20M%2015.962%2012.375%20C%2016.25%2011.906%2015.962%2011.203%2016.106%2010.64%20C%2016.298%2010.079%2016.923%209.61%2016.923%209%20C%2016.923%208.438%2016.298%207.969%2016.154%207.406%20C%2015.962%206.844%2016.25%206.14%2015.962%205.625%20C%2015.673%205.156%2014.904%205.015%2014.471%204.64%20C%2014.086%204.219%2013.942%203.469%2013.462%203.188%20C%2013.251%203.091%2013.021%203.043%2012.788%203.046%20C%2012.548%203.046%2012.308%203.094%2012.067%203.094%20C%2011.923%203.094%2011.779%203.046%2011.635%203.046%20C%2011.058%202.86%2010.577%202.25%2010%202.25%20C%209.375%202.25%208.894%202.86%208.317%203%20C%208.173%203.047%208.029%203.094%207.885%203.094%20C%207.644%203.094%207.404%203.046%207.163%203.046%20C%206.923%203.046%206.683%203.094%206.538%203.188%20C%206.009%203.469%205.865%204.219%205.481%204.641%20C%205.048%205.016%204.278%205.156%203.99%205.625%20C%203.702%206.141%203.99%206.844%203.846%207.406%20C%203.654%207.969%203.077%208.438%203.077%209%20C%203.077%209.61%203.654%2010.079%203.846%2010.641%20C%203.991%2011.204%203.702%2011.906%203.991%2012.375%20C%204.279%2012.891%205.048%2013.031%205.481%2013.406%20C%205.865%2013.828%206.01%2014.578%206.491%2014.813%20C%206.683%2014.953%206.923%2014.953%207.163%2014.953%20L%207.885%2014.953%20C%208.029%2014.953%208.173%2015%208.318%2015%20C%208.895%2015.188%209.375%2015.75%2010%2015.75%20C%2010.577%2015.75%2011.058%2015.14%2011.635%2015%20C%2011.779%2015%2011.923%2014.953%2012.068%2014.953%20C%2012.308%2014.953%2012.548%2015%2012.788%2015%20C%2013.029%2015%2013.269%2014.953%2013.414%2014.859%20C%2013.942%2014.578%2014.087%2013.828%2014.472%2013.406%20C%2014.904%2013.031%2015.673%2012.89%2015.962%2012.375%20Z%20M%2010%206%20C%2011.683%206%2013.077%207.36%2013.077%209%20C%2013.077%2010.688%2011.682%2012%2010%2012%20C%208.269%2012%206.923%2010.688%206.923%209%20C%206.923%207.359%208.269%206%2010%206%20Z%22%20fill%3D%22rgb(36%2C30%2C41)%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E" 
+                  alt="ranking" 
+                  className="craft-card-icon"
+                />
+              )}
+              <h3 className={`craft-card-title ${activeCard === 'ranking' ? 'craft-card-title-active' : 'craft-card-title-inactive'}`}>Rating & ranking</h3>
+              {activeCard === 'ranking' && (
+                <p className="craft-card-description">Rating or ranking assignments ask contributors to identify the best model responses out of two or more options until the content is high quality enough to be accepted in a review process. Contributors may also be asked to justify their selection in relation to specifc criteria or factors.</p>
+              )}
             </div>
           </div>
-          <div className="craft-card">Open rewrite</div>
-          <div className="craft-card">Multi-modal</div>
+
+          <div 
+            className={`craft-card ${activeCard === 'rewrite' ? 'craft-card-active' : 'craft-card-inactive'}`}
+            onClick={() => handleCardClick('rewrite')}
+          >
+            <div className="craft-card-content">
+              {activeCard === 'rewrite' && (
+                <img 
+                  src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20d%3D%22M%201.912%2013.861%20C%202.022%2013.493%202.206%2013.125%202.426%2012.831%20L%202.426%2012.794%20L%202.464%2012.794%20C%202.537%2012.684%202.647%2012.574%202.721%2012.5%20L%2013.897%201.324%20C%2014.823%200.404%2016.317%200.404%2017.243%201.324%20L%2018.676%202.758%20C%2018.787%202.868%2018.897%203.015%2018.971%203.125%20C%2019.6%204.06%2019.477%205.31%2018.676%206.103%20L%207.5%2017.279%20C%207.463%2017.316%207.389%2017.353%207.353%2017.426%20C%207.316%2017.464%207.242%2017.5%207.206%2017.537%20L%207.206%2017.574%20L%207.169%2017.574%20C%206.875%2017.794%206.508%2017.978%206.139%2018.088%20L%203.272%2018.934%20L%201.691%2019.412%20C%201.396%2019.485%201.065%2019.412%200.845%2019.154%20C%200.598%2018.949%200.509%2018.609%200.624%2018.309%20L%201.065%2016.728%20L%201.911%2013.86%20Z%20M%2014.669%207.611%20L%2012.39%205.331%20L%205.552%2012.169%20L%205.993%2014.008%20L%207.831%2014.449%20Z%20M%204.155%2013.787%20L%203.714%2014.081%20C%203.676%2014.155%203.64%2014.265%203.603%2014.375%20L%203.345%2015.221%20L%202.757%2017.243%20L%204.779%2016.655%20L%205.625%2016.397%20C%205.735%2016.36%205.845%2016.324%205.919%2016.286%20L%206.214%2015.882%20L%205.074%2015.588%20C%204.743%2015.515%204.485%2015.257%204.412%2014.926%20L%204.154%2013.786%20Z%20M%2012.169%208.64%20L%208.64%2012.169%20C%208.419%2012.39%208.015%2012.39%207.794%2012.169%20C%207.573%2011.945%207.573%2011.585%207.794%2011.361%20L%2011.324%207.831%20C%2011.43%207.708%2011.584%207.638%2011.746%207.638%20C%2011.909%207.638%2012.063%207.708%2012.169%207.831%20C%2012.39%208.055%2012.39%208.415%2012.169%208.639%20Z%22%20fill%3D%22rgb(36%2C30%2C41)%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E" 
+                  alt="pencil" 
+                  className="craft-card-icon"
+                />
+              )}
+              <h3 className={`craft-card-title ${activeCard === 'rewrite' ? 'craft-card-title-active' : 'craft-card-title-inactive'}`}>Open rewrite</h3>
+              {activeCard === 'rewrite' && (
+                <p className="craft-card-description">With an Open Rewrite assignment, experts provide a starting point or a specific context for an AI model to expand upon. These prompts can vary widely depending on the desired output and the task at hand. Writing prompts can be simple sentences, questions, or descriptions meant to elicit a response from the AI model.</p>
+              )}
+            </div>
+          </div>
+
+          <div 
+            className={`craft-card ${activeCard === 'multimodal' ? 'craft-card-active' : 'craft-card-inactive'}`}
+            onClick={() => handleCardClick('multimodal')}
+          >
+            <div className="craft-card-content">
+              {activeCard === 'multimodal' && (
+                <img 
+                  src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20d%3D%22M%209.024%200.234%20C%209.336%200.078%209.649%200%2010%200%20C%2010.313%200%2010.625%200.078%2010.938%200.234%20L%2019.141%203.711%20C%2019.649%203.946%2020%204.453%2020%205%20C%2020%205.586%2019.648%206.094%2019.141%206.328%20L%2010.938%209.805%20C%2010.625%209.961%2010.313%2010%2010%2010%20C%209.648%2010%209.336%209.961%209.023%209.804%20L%200.821%206.328%20C%200.313%206.094%200%205.586%200%205%20C%200%204.453%200.313%203.945%200.821%203.711%20L%209.023%200.234%20Z%20M%2010%201.875%20C%209.883%201.875%209.804%201.914%209.766%201.953%20L%202.578%205%20L%209.766%208.086%20C%209.805%208.125%209.883%208.125%2010%208.125%20C%2010.078%208.125%2010.156%208.125%2010.196%208.086%20L%2017.383%205%20L%2010.196%201.953%20C%2010.142%201.904%2010.073%201.876%2010%201.875%20Z%20M%209.766%2013.086%20C%209.805%2013.125%209.883%2013.125%2010%2013.125%20C%2010.078%2013.125%2010.156%2013.125%2010.196%2013.086%20L%2017.656%209.922%20C%2017.456%209.649%2017.426%209.287%2017.578%208.984%20C%2017.813%208.516%2018.359%208.32%2018.828%208.554%20L%2019.18%208.75%20C%2019.688%208.984%2020%209.453%2020%2010%20C%2020%2010.586%2019.648%2011.094%2019.101%2011.328%20L%2010.938%2014.805%20C%2010.625%2014.961%2010.313%2015%2010%2015%20C%209.648%2015%209.336%2014.961%209.023%2014.804%20L%200.86%2011.328%20C%200.313%2011.094%200%2010.586%200%209.961%20C%200%209.492%200.196%209.062%200.586%208.789%20L%201.016%208.477%20C%201.406%208.203%201.992%208.281%202.305%208.711%20C%202.576%209.066%202.542%209.567%202.226%209.883%20L%209.766%2013.086%20Z%20M%202.304%2013.711%20C%202.575%2014.066%202.542%2014.567%202.227%2014.883%20L%209.766%2018.086%20C%209.805%2018.125%209.883%2018.125%2010%2018.125%20C%2010.078%2018.125%2010.156%2018.125%2010.196%2018.086%20L%2017.656%2014.922%20C%2017.456%2014.649%2017.426%2014.287%2017.578%2013.984%20C%2017.813%2013.516%2018.359%2013.32%2018.828%2013.554%20L%2019.18%2013.75%20C%2019.688%2013.984%2020%2014.453%2020%2015%20C%2020%2015.586%2019.648%2016.094%2019.101%2016.328%20L%2010.938%2019.805%20C%2010.625%2019.961%2010.313%2020%2010%2020%20C%209.648%2020%209.336%2019.961%209.023%2019.804%20L%200.86%2016.328%20C%200.313%2016.094%200%2015.586%200%2014.961%20C%200%2014.492%200.196%2014.063%200.586%2013.789%20L%201.016%2013.476%20C%201.406%2013.203%201.992%2013.281%202.305%2013.711%20Z%22%20fill%3D%22rgb(36%2C30%2C41)%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E" 
+                  alt="modal" 
+                  className="craft-card-icon"
+                />
+              )}
+              <h3 className={`craft-card-title ${activeCard === 'multimodal' ? 'craft-card-title-active' : 'craft-card-title-inactive'}`}>Multi-modal</h3>
+              {activeCard === 'multimodal' && (
+                <p className="craft-card-description">Multi-modal assignments help train models generate and classify information from multiple modalities, including images, audio, or video. For example, experts might train the model to generate a story or a description based on visual content.</p>
+              )}
+            </div>
+          </div>
         </div>
-        <div className="craft-right">
-          <img src="https://placehold.co/500x320?text=AI+Task+Illustration" alt="AI Task Illustration" className="craft-illustration" />
+
+        <div className="craft-image-container">
+          <img 
+            src={getImageSource()}
+            alt="Craft illustration" 
+            className="craft-image"
+          />
         </div>
       </div>
-      <div className="craft-callout">
-        <div className="craft-callout-icon">✨</div>
-        <div className="craft-callout-content">
-          <div className="craft-callout-title">AI training is never boring!</div>
-          <div className="craft-callout-desc">Apply for an opportunity in your area of expertise</div>
-        </div>
-        <a href="#opportunities" className="craft-callout-btn">VIEW OPPORTUNITIES</a>
-      </div>
-    </section>
+    </div>
   );
 }
 

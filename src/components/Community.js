@@ -184,9 +184,7 @@ function Community() {
                 </svg>
               </div>
             </div>
-            <img src={overlay1} alt="" className="overlay overlay-1" />
-            <img src={overlay2} alt="" className="overlay overlay-2" />
-          </a>
+       </a>
         </div>
         </div>
       </div>
