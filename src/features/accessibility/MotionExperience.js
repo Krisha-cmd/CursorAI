@@ -27,8 +27,8 @@ export const useMotionExperience = () => {
   const scrollDebounceRef = useRef(null);
   const lastScrollTimeRef = useRef(0);
   const smoothingFactor = 0.3;
-  const scrollThreshold = 50; // Minimum movement to trigger scroll
-  const scrollSpeed = 15; // Pixels per frame to scroll
+  const scrollSpeed = 10; // Reduced scroll speed for smoother scrolling
+  const scrollZoneHeight = 100; // Height of the scroll zones at top and bottom
 
   const checkSystemRequirements = () => {
     const gpu = tf.getBackend() === 'webgl';
@@ -276,7 +276,6 @@ export const useMotionExperience = () => {
       if (predictions.length > 0) {
         const landmarks = predictions[0].landmarks;
         const indexFinger = landmarks[8];
-        const middleFinger = landmarks[12];
 
         const videoWidth = video.videoWidth;
         const videoHeight = video.videoHeight;
@@ -289,13 +288,17 @@ export const useMotionExperience = () => {
         const smoothedX = smoothPosition(lastPositionRef.current.x, canvas.width - targetX);
         const smoothedY = smoothPosition(lastPositionRef.current.y, targetY);
 
-        // Calculate vertical movement for scrolling
-        const verticalMovement = smoothedY - lastPositionRef.current.y;
-        
-        // Handle scrolling
-        if (Math.abs(verticalMovement) > scrollThreshold) {
-          const direction = verticalMovement > 0 ? 'down' : 'up';
-          handleScroll(direction);
+        // Handle scrolling based on position
+        const windowHeight = window.innerHeight;
+        const scrollThreshold = scrollZoneHeight;
+
+        // Check if hand is in scroll zones
+        if (smoothedY < scrollThreshold) {
+          // In top scroll zone
+          handleScroll('up');
+        } else if (smoothedY > windowHeight - scrollThreshold) {
+          // In bottom scroll zone
+          handleScroll('down');
         }
 
         lastPositionRef.current = { x: smoothedX, y: smoothedY };
@@ -305,6 +308,11 @@ export const useMotionExperience = () => {
         ctx.beginPath();
         ctx.arc(smoothedX, smoothedY, 5, 0, 2 * Math.PI);
         ctx.fill();
+
+        // Draw scroll zones (for debugging, can be removed in production)
+        ctx.fillStyle = 'rgba(94, 234, 212, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, scrollThreshold);
+        ctx.fillRect(0, windowHeight - scrollThreshold, canvas.width, scrollThreshold);
 
         // Check for fist with debouncing
         const fistClosed = isFist(landmarks);
