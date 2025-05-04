@@ -1,0 +1,224 @@
+/* Craft Section */
+.craft {
+  background: #fdfcf8;
+  padding: 4rem 0 2rem 0;
+  max-width: 1500px;
+  margin: 0 auto 2rem auto;
+}
+
+.craft-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.craft-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #241c2b;
+  margin-bottom: 0.7rem;
+}
+
+.craft-subtitle {
+  font-size: 1.15rem;
+  color: #6b5c7d;
+  margin-bottom: 0.7rem;
+}
+
+.craft-content {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.craft-left {
+  flex: 1 1 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+.craft-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(26,0,58,0.04);
+  padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #241c2b;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  min-height: 80px;
+  transition: box-shadow 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.craft-card:not(.craft-card-active) {
+  background: #f5f3ff;
+  color: #b6a7d6;
+  font-weight: 500;
+  box-shadow: none;
+  min-height: 60px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.1rem 1.5rem;
+}
+
+.craft-card-active {
+  border: 2px solid #b6a7d6;
+  box-shadow: 0 8px 32px rgba(26,0,58,0.10);
+}
+
+.craft-card-icon {
+  font-size: 2rem;
+  margin-right: 0.7rem;
+  margin-top: 0.2rem;
+}
+
+.craft-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #241c2b;
+}
+
+.craft-card-desc {
+  font-size: 1rem;
+  color: #6b5c7d;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.craft-right {
+  flex: 2 1 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+  max-width: 700px;
+}
+
+.craft-illustration {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(26,0,58,0.06);
+}
+
+/* Craft Callout */
+.craft-callout {
+  background: linear-gradient(120deg, #3a2d4d 60%, #6b5c7d 100%);
+  color: #fff;
+  border-radius: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.2rem 3.5rem;
+  margin: 2.5rem auto 0 auto;
+  max-width: 1100px;
+  box-shadow: 0 2px 16px rgba(26,0,58,0.10);
+  gap: 2rem;
+}
+
+.craft-callout-icon {
+  font-size: 2.2rem;
+  margin-right: 1.2rem;
+}
+
+.craft-callout-content {
+  flex: 1 1 auto;
+}
+
+.craft-callout-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.craft-callout-desc {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.craft-callout-btn {
+  background: #fff;
+  color: #241c2b;
+  font-weight: 700;
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  margin-left: 2rem;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(26,0,58,0.08);
+  text-decoration: none;
+}
+
+.craft-callout-btn:hover {
+  background: #3a2d4d;
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 1100px) {
+  .craft-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .craft-left, .craft-right {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .craft-illustration {
+    max-width: 90vw;
+  }
+
+  .craft-callout {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem 1.2rem;
+    gap: 1.2rem;
+  }
+
+  .craft-callout-btn {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .craft {
+    padding: 2rem 0 1rem 0;
+  }
+
+  .craft-title {
+    font-size: 1.5rem;
+  }
+
+  .craft-header {
+    margin-bottom: 1.2rem;
+  }
+
+  .craft-content {
+    gap: 1rem;
+  }
+
+  .craft-card {
+    font-size: 1rem;
+    padding: 1rem 0.7rem 0.7rem 0.7rem;
+  }
+
+  .craft-callout {
+    border-radius: 1.2rem;
+    padding: 1rem 0.7rem;
+  }
+} 

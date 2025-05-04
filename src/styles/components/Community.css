@@ -1,0 +1,142 @@
+/* Community Section */
+.community {
+  background: #241c2b;
+  border-radius: 2.5rem;
+  margin: 4rem auto 2rem auto;
+  padding: 3.5rem 2vw 3.5rem 2vw;
+  max-width: 1500px;
+  color: #fff;
+  position: relative;
+}
+
+.community-header {
+  text-align: left;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.community-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  color: #fff;
+}
+
+.community-subtitle {
+  font-size: 1.15rem;
+  color: #d1cbe2;
+  margin-bottom: 0.7rem;
+  max-width: 600px;
+}
+
+.community-cta {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: none;
+  border: 1.5px solid #fff;
+  color: #fff;
+  border-radius: 2rem;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.community-cta:hover {
+  background: #fff;
+  color: #241c2b;
+}
+
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.community-card {
+  background: #2d2535;
+  border-radius: 1.5rem;
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 140px;
+  position: relative;
+  box-shadow: 0 2px 16px rgba(26,0,58,0.10);
+  transition: box-shadow 0.2s, background 0.2s;
+}
+
+.community-card:hover {
+  box-shadow: 0 8px 32px rgba(26,0,58,0.18);
+  background: #3a2d4d;
+}
+
+.community-icon {
+  font-size: 1.7rem;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
+.community-link {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #b6a7d6;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.community-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.community-card-special {
+  border: 1.5px solid #b6a7d6;
+  background: #241c2b;
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* Responsive Design */
+@media (max-width: 1100px) {
+  .community-header {
+    text-align: center;
+  }
+
+  .community-cta {
+    position: static;
+    display: inline-block;
+    margin-top: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .community {
+    padding: 2rem 1vw 2rem 1vw;
+    border-radius: 1.2rem;
+  }
+
+  .community-title {
+    font-size: 1.5rem;
+  }
+
+  .community-grid {
+    gap: 1rem;
+  }
+
+  .community-card {
+    font-size: 1rem;
+    padding: 1.2rem 0.8rem 1rem 0.8rem;
+    min-height: 100px;
+  }
+} 
