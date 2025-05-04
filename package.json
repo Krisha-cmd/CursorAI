@@ -2,7 +2,7 @@
   "name": "outlier-website",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https:/Krisha-cmd.github.io/OutlierAI",
+  "homepage": "https://Krisha-cmd.github.io/OutlierAI",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@mediapipe/camera_utils": "^0.3.1675466862",
