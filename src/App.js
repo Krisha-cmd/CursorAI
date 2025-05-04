@@ -7,6 +7,7 @@ import Community from './components/Community';
 import Craft from './components/Craft';
 import Testimonials from './components/Testimonials';
 import FAQs from './components/FAQs';
+import Footer from './components/Footer';
 import svg1 from './Assets/svg.svg';
 import svg2 from './Assets/svg2.svg';
 
@@ -31,6 +32,7 @@ function App() {
       <Craft />
       <Testimonials />
       <FAQs />
+      <Footer />
     </div>
   );
 }
