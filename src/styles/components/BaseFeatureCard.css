@@ -1,0 +1,56 @@
+.base-feature-card {
+  border: 0.63px solid #E5E7EB;
+  border-radius: 9px;
+  background-color: #fff;
+  width: 100%;
+  max-width: 300px;
+  position: absolute;
+  top: 45px;
+  
+  overflow: hidden;
+  left: 21px;
+}
+
+.base-feature-content {
+  padding: 12px;
+  overflow: hidden;
+  border-bottom: 0.63px solid #E5E7EB;
+}
+
+.base-feature-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.feature-icon {
+  width: auto;
+  height: auto;
+}
+
+#feature-image-title {
+  font-family: Inter, "Inter Placeholder", sans-serif;
+  font-size: 12px;
+  line-height: 19.2px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #374151;
+  margin: 0;
+}
+
+#feature-image-description {
+  font-family: Inter, "Inter Placeholder", sans-serif;
+  font-size: 8.85px;
+  line-height: 10.62px;
+  font-weight: 400;
+  letter-spacing: normal;
+  color: #374151;
+  margin: 0;
+}
+
+.base-feature-footer {
+  min-height: 140px;
+  width: 100%;
+  background-color: #F9FAFB;
+} 

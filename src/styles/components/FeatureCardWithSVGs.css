@@ -1,0 +1,38 @@
+.feature-card-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  top:90px;
+  right: 18px;
+}
+
+#svgContainer-1 {
+    width: 124%;
+    height: 124%;
+}
+
+#svgContainer-1 img {
+width: 100%;
+height: 100%;
+object-fit: contain;
+}
+
+.feature-card-svg-container {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  margin-top:2px
+}
+
+.feature-card-svg-container .svgContainer {
+  width: 100%;
+  height: 100%;
+  margin:2px 0;
+}
+
+.feature-card-svg-container .svgContainer img {
+  width: auto;
+  height:auto;
+} 

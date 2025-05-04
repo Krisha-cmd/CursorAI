@@ -1,72 +1,92 @@
 /* Features Section */
 .features {
-  background: #fdfcf8;
-  padding: 4rem 0 2rem 0;
   text-align: center;
 }
 
 .section-title {
-  font-size: 2.6rem;
-  font-weight: 700;
-  color: #181028;
-  margin-bottom: 3rem;
-  line-height: 1.15;
+  font-family: Inter, "Inter Placeholder", sans-serif;
+  font-size: 48px;
+  line-height: 57.6px;
+  font-weight: 600;
+  letter-spacing: -0.96px;
+  color: #0F0F10;
+  margin: 76px 360px 0 360px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke: 0;
+}
+
+.feature-image-base {
+  position: absolute;
+  top:70px;
+  left:109px;
+  width: auto;
+  height: auto;
+  z-index: 1;
+}
+
+.feature-image-base img {
+  width: auto;
+  height: auto;
+  object-fit: cover;
 }
 
 .feature-cards {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 64px;
   flex-wrap: wrap;
   max-width: 1200px;
+  max-height: 520px;
   margin: 0 auto;
+  margin-top: 40px;
 }
 
 .feature-card {
-  background: #faf8f4;
-  border-radius: 2rem;
-  box-shadow: 0 2px 16px rgba(26,0,58,0.04);
-  padding: 2.5rem 2rem 2rem 2rem;
-  width: 340px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-  transition: box-shadow 0.2s;
-}
-
-.feature-card:hover {
-  box-shadow: 0 8px 32px rgba(26,0,58,0.10);
+  justify-content: space-between;
 }
 
 .feature-image {
-  width: 100%;
-  height: 160px;
+  height: 319px;
+  background: #F9F8F5;
+  border-radius: 30px;
   display: flex;
   align-items: center;
+  margin-bottom: 24px;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .feature-image img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 1.2rem;
-  box-shadow: 0 2px 8px rgba(26,0,58,0.06);
+
 }
 
 .feature-card h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #181028;
-  margin-bottom: 0.7rem;
+  font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif;
+  font-size: 34px;
+  line-height: 40.8px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #1B0030;
+  max-width: 360px;
+  text-align: start;
+  align-items: start;
 }
 
 .feature-card p {
-  color: #2d174c;
-  font-size: 1.05rem;
-  font-weight: 400;
-  line-height: 1.5;
+  font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif;
+  font-size: 16px;
+  line-height: 22.4px;
+  font-weight: 500;
+  letter-spacing: 0.32px;
+  color: #1B0030;
+  max-width: 360px;
+  margin: 16px 0 12px 0;
+  text-align: start;
+  align-items: start;
 }
 
 /* Responsive Design */
@@ -82,3 +102,13 @@
     max-width: 400px;
   }
 } 
+
+
+#feature2 {
+  width: auto;
+  max-width: 352px;
+  max-width: 286px;
+  position: absolute;
+  top: 45px;
+  left: 21px;
+}

@@ -1,0 +1,62 @@
+.response-cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  width: 100%;
+  height: 88px;
+  max-width: 300px;
+  z-index: 5;
+  position: absolute;
+  bottom: 36px;
+  left: 42px;
+}
+
+.response-card {
+    background-color: #fff;
+    border: 0.63px solid #E5E7EB;
+    border-radius: 8.65px;
+    padding: 10px;
+    height: 88px;
+    position: relative;
+    width: 135px;
+  }
+
+.response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.response-title p {
+  font-family: "Inter", "Inter Placeholder", sans-serif;
+  font-size: 8.85px;
+  font-weight: 600;
+  line-height: 160%;
+  color: #374151;
+  margin: 0;
+}
+
+.menu-icon-button {
+    position: absolute;
+    right: 11px;
+    top: 8px;
+    margin:0;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+
+.skeletons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skeleton {
+  background-color: #E5E7EB;
+  border-radius: 41.01px;
+  height: 4px;
+  width: 100%;
+} 
