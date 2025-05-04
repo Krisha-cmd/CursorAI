@@ -62,7 +62,7 @@ function Features() {
   }, []);
 
   return (
-    <section className="features" ref={sectionRef}>
+    <section className="features" id="features" ref={sectionRef}>
       <h2 className="section-title">Share your expertise and get paid<br />working where and when you want</h2>
       <div className="feature-cards">
         <div className="feature-card">

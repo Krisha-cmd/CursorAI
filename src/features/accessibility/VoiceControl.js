@@ -520,33 +520,97 @@ export const useVoiceControl = () => {
   };
 
   const executeCommand = (action, target) => {
+    console.log('Executing command:', { action, target });
+    
     switch (action) {
       case 'navigation':
         switch (target) {
           case 'faq':
-            document.querySelector('#faq')?.scrollIntoView({ behavior: 'smooth' });
+            const faqElement = document.querySelector('#faq');
+            console.log('FAQ element found:', !!faqElement);
+            faqElement?.scrollIntoView({ behavior: 'smooth' });
             speak("Scrolling to FAQ section.");
             break;
           case 'features':
-            document.querySelector('#features')?.scrollIntoView({ behavior: 'smooth' });
-            speak("Here are our features.");
+            const featuresElement = document.querySelector('#features');
+            console.log('Features element found:', !!featuresElement);
+            if (featuresElement) {
+              // Calculate the position to scroll to, accounting for any fixed headers
+              const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+              const featuresPosition = featuresElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+              
+              window.scrollTo({
+                top: featuresPosition,
+                behavior: 'smooth'
+              });
+              speak("Here are our features.");
+            } else {
+              console.error('Features section not found in DOM');
+              speak("I'm having trouble finding the features section. Please try again.");
+            }
             break;
           case 'home':
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Scroll to the very top of the page
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
             speak("Taking you to the top of the page.");
             break;
           case 'community':
-            document.querySelector('#community')?.scrollIntoView({ behavior: 'smooth' });
-            speak("Here's our community section.");
+            const communityElement = document.querySelector('#community');
+            console.log('Community element found:', !!communityElement);
+            if (communityElement) {
+              const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+              const communityPosition = communityElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+              
+              window.scrollTo({
+                top: communityPosition,
+                behavior: 'smooth'
+              });
+              speak("Here's our community section.");
+            } else {
+              console.error('Community section not found in DOM');
+              speak("I'm having trouble finding the community section. Please try again.");
+            }
             break;
           case 'testimonials':
-            document.querySelector('#testimonials')?.scrollIntoView({ behavior: 'smooth' });
-            speak("Here are what our users say about us.");
+            const testimonialsElement = document.querySelector('#testimonials');
+            console.log('Testimonials element found:', !!testimonialsElement);
+            if (testimonialsElement) {
+              const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+              const testimonialsPosition = testimonialsElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+              
+              window.scrollTo({
+                top: testimonialsPosition,
+                behavior: 'smooth'
+              });
+              speak("Here are what our users say about us.");
+            } else {
+              console.error('Testimonials section not found in DOM');
+              speak("I'm having trouble finding the testimonials section. Please try again.");
+            }
             break;
           case 'craft':
-            document.querySelector('#craft')?.scrollIntoView({ behavior: 'smooth' });
-            speak("Here's our crafting section.");
+            const craftElement = document.querySelector('#craft');
+            console.log('Craft element found:', !!craftElement);
+            if (craftElement) {
+              const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+              const craftPosition = craftElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+              
+              window.scrollTo({
+                top: craftPosition,
+                behavior: 'smooth'
+              });
+              speak("Here's our crafting section.");
+            } else {
+              console.error('Craft section not found in DOM');
+              speak("I'm having trouble finding the craft section. Please try again.");
+            }
             break;
+          default:
+            console.log('Unknown navigation target:', target);
+            speak("I'm not sure where you want to go. Try saying 'help' to see available commands.");
         }
         break;
       case 'actions':
