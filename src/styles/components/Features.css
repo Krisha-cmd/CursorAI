@@ -17,11 +17,19 @@
 
 .feature-image-base {
   position: absolute;
-  top:70px;
-  left:109px;
+  top: 70px;
+  left: 109px;
   width: auto;
   height: auto;
   z-index: 1;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.feature-image-base.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .feature-image-base img {
