@@ -6,6 +6,10 @@ function FloatingMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showChat, setShowChat] = useState(true);
   const [chatMessage, setChatMessage] = useState('');
+  const [position, setPosition] = useState({ x: 40, y: window.innerHeight - 130 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const menuRef = useRef(null);
   const timeoutRef = useRef(null);
 
   const chatMessages = [
@@ -18,26 +22,73 @@ function FloatingMenu() {
 
   const menuItems = [
     {
-      icon: '🔍',
-      tooltip: 'Screen Reader Mode',
-      link: '#'
+      icon: '👁️',
+      label: 'Screen Reader',
+      tooltip: 'Enable screen reader mode for better accessibility'
     },
     {
       icon: '🎨',
-      tooltip: 'High Contrast Mode',
-      link: '#'
+      label: 'High Contrast',
+      tooltip: 'Switch to high contrast mode for better visibility'
     },
     {
       icon: '📏',
-      tooltip: 'Text Size Adjuster',
-      link: '#'
+      label: 'Text Size',
+      tooltip: 'Adjust text size for comfortable reading'
+    },
+    {
+      icon: '🌙',
+      label: 'Dark Mode',
+      tooltip: 'Toggle dark mode for reduced eye strain'
     }
   ];
 
+  const handleMouseDown = (e) => {
+    if (e.target.closest('.floating-menu-button')) {
+      const rect = menuRef.current.getBoundingClientRect();
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      });
+      setIsDragging(true);
+    }
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      const x = e.clientX - dragOffset.x;
+      const y = e.clientY - dragOffset.y;
+      
+      const maxX = window.innerWidth - menuRef.current.offsetWidth;
+      const maxY = window.innerHeight - menuRef.current.offsetHeight;
+      
+      setPosition({
+        x: Math.min(Math.max(0, x), maxX),
+        y: Math.min(Math.max(0, y), maxY)
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragOffset]);
+
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen) {
-      setShowChat(false);
+    if (!isDragging) {
+      setIsMenuOpen(!isMenuOpen);
+      if (!isMenuOpen) {
+        setShowChat(false);
+      }
     }
   };
 
@@ -75,7 +126,17 @@ function FloatingMenu() {
   }, [isMenuOpen]);
 
   return (
-    <div className="floating-menu">
+    <div 
+      className="floating-menu"
+      ref={menuRef}
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        bottom: 'auto',
+        cursor: isDragging ? 'grabbing' : 'default'
+      }}
+      onMouseDown={handleMouseDown}
+    >
       <div 
         className="floating-menu-button"
         onClick={toggleMenu}
@@ -98,18 +159,15 @@ function FloatingMenu() {
         aria-label="Accessibility options"
       >
         {menuItems.map((item, index) => (
-          <a 
+          <button 
             key={index}
-            href={item.link}
             className="floating-menu-item"
-            target="_blank"
-            rel="noopener noreferrer"
             role="menuitem"
             aria-label={item.tooltip}
           >
             <span className="floating-menu-icon">{item.icon}</span>
             <span className="floating-menu-tooltip">{item.tooltip}</span>
-          </a>
+          </button>
         ))}
       </div>
     </div>
